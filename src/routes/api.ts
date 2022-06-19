@@ -6,10 +6,11 @@ import NodeCache from "node-cache";
 import checkImage from "../middleware/checkImage";
 import validateQuery from "../middleware/validateQuery";
 import { relativePath } from "../app";
+import proccessingImage from "../utilities/processingImage";
 
 const api = express.Router();
 
-const nodeCache = new NodeCache();
+
 
 // so in this endpoint it passes throw two middlewares:
 //validateQuery: is to check wheter the dimensions are valid or not.
@@ -26,15 +27,8 @@ api.get(
     let Height: number = parseInt(height as unknown as string); // converting height to numbers
 
     try {
-      const image = await sharp(`images/${filename}.jpg`)
-        .resize(Width, Height)
-        .jpeg();
-
-      const keyToCache = `${filename}${width}${height}`; // this is an id for each image with it name and format to check
-
-      nodeCache.set(keyToCache, image);
-      await image.toFile(`images/thumbnails/${keyToCache}.jpeg`);
-
+      await proccessingImage((filename as string),Width,Height);
+      const keyToCache = `${filename}${Width}${Height}`; // this is an id for each image with it name and format to check
       res.status(201).sendFile(`images/thumbnails/${keyToCache}.jpeg`, {
         root: relativePath,
       });
@@ -42,13 +36,8 @@ api.get(
       res.status(404).send("this image is not found"); //
     }
 
-    //    await image.toFile("C:\\Users\\hp\\Desktop\\Mans1611\\Udacity FullStack\\projects\\Image Processing\\images\\image.jpg",(err,info)=>{
-    //     console.log(info);
-
-    //    })
-
-    //res.sendFile('C:\\Users\\hp\\Desktop\\Mans1611\\Udacity FullStack\\projects\\Image Processing\\images\\image.jpg');
+   
   }
 );
-export { nodeCache };
+
 export default api;

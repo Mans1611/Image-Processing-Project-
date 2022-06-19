@@ -1,7 +1,8 @@
 import express from "express";
 import NodeCache from "node-cache";
-import { nodeCache } from "../routes/api";
+
 import { relativePath } from "../app";
+import { nodeCache } from "../utilities/processingImage";
 
 const checkImage = (
   req: express.Request,

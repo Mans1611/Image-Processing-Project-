@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const api_1 = require("../routes/api");
 const app_1 = require("../app");
+const processingImage_1 = require("../utilities/processingImage");
 const checkImage = (req, res, next) => {
     let { filename, width, height } = req.query;
     const keyToCache = `${filename}${width}${height}`;
-    if (api_1.nodeCache.get(keyToCache)) {
+    if (processingImage_1.nodeCache.get(keyToCache)) {
         //console.log(nodeCache.get(keyToCache));
         res.status(201).sendFile(`images/thumbnails/${filename}.jpeg`, {
             root: app_1.relativePath,

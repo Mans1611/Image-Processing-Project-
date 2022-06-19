@@ -20,7 +20,7 @@ const validateQuery = (req, res, next) => {
     else {
         let checkValidateWidth = width.match(/[^0-9]/gi);
         let checkValidateHeight = height.match(/[^0-9]/gi);
-        console.log(checkValidateWidth);
+        //console.log(checkValidateWidth);
         try {
             if (checkValidateWidth || checkValidateHeight)
                 throw new Error("write just numbers to the query please");

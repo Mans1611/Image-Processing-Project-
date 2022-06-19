@@ -12,12 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("../app"));
-const supertest_1 = __importDefault(require("supertest"));
-const request = (0, supertest_1.default)(app_1.default);
-describe("testing api end point", () => {
-    it("test not getting an error ", () => __awaiter(void 0, void 0, void 0, function* () {
-        const res = yield request.get("/api/image");
-        expect(res.status).toBe(200);
-    }));
+exports.nodeCache = void 0;
+const sharp_1 = __importDefault(require("sharp"));
+const node_cache_1 = __importDefault(require("node-cache"));
+const nodeCache = new node_cache_1.default();
+exports.nodeCache = nodeCache;
+const proccessingImage = (filename, Width, Height) => __awaiter(void 0, void 0, void 0, function* () {
+    const image = yield (0, sharp_1.default)(`images/${filename}.jpg`)
+        .resize(Width, Height)
+        .jpeg();
+    const keyToCache = `${filename}${Width}${Height}`; // this is an id for each image with it name and format to check
+    nodeCache.set(keyToCache, image);
+    yield image.toFile(`images/thumbnails/${keyToCache}.jpeg`);
 });
+exports.default = proccessingImage;

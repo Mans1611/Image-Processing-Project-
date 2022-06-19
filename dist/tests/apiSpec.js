@@ -16,13 +16,7 @@ const app_1 = __importDefault(require("../app"));
 const supertest_1 = __importDefault(require("supertest"));
 const request = (0, supertest_1.default)(app_1.default);
 describe("Testing api File", () => {
-    describe("testing api end point", () => {
-        it("test get api end point", () => __awaiter(void 0, void 0, void 0, function* () {
-            const res = yield request.get("/api/image");
-            expect(res.status).toBe(200);
-        }));
-    });
-    it("first test for api end point", () => __awaiter(void 0, void 0, void 0, function* () {
+    it("image proccessed", () => __awaiter(void 0, void 0, void 0, function* () {
         const res = yield request.get("/api/image?filename=image&width=440&height=417");
         expect(res.status).toBe(201);
     }));
@@ -32,7 +26,7 @@ describe("Testing api File", () => {
             expect(res.status).toBe(401); // for a bad request
         }));
         it("entering file which is not exist ", () => __awaiter(void 0, void 0, void 0, function* () {
-            const res = yield request.get("/api/image?filename=ima&width=440&height=417");
+            const res = yield request.get("/api/image?filename=i1ma&width=440&height=417");
             expect(res.status).toBe(404); // for a NotFound
         }));
     });

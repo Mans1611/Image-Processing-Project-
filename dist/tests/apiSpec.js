@@ -13,14 +13,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("../app"));
-const api_1 = __importDefault(require("../routes/api"));
 const supertest_1 = __importDefault(require("supertest"));
-app_1.default.use("/api", api_1.default);
 const request = (0, supertest_1.default)(app_1.default);
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 describe("Testing api File", () => {
+    describe("testing api end point", () => {
+        it("test get api end point", () => __awaiter(void 0, void 0, void 0, function* () {
+            const res = yield request.get("/api/image");
+            expect(res.status).toBe(200);
+        }));
+    });
     it("first test for api end point", () => __awaiter(void 0, void 0, void 0, function* () {
-        const res = yield request.get('/image?filename=gand&width=4ld40&height=401');
-        expect(res.status).toBe(200);
+        const res = yield request.get("/api/image?filename=image&width=440&height=417");
+        expect(res.status).toBe(201);
     }));
+    describe("testing the not valid cases", () => {
+        it("entering a string to the dimensions which is not valid ", () => __awaiter(void 0, void 0, void 0, function* () {
+            const res = yield request.get("/api/image?filename=image&width=44l0&height=417");
+            expect(res.status).toBe(401); // for a bad request
+        }));
+        it("entering file which is not exist ", () => __awaiter(void 0, void 0, void 0, function* () {
+            const res = yield request.get("/api/image?filename=ima&width=440&height=417");
+            expect(res.status).toBe(404); // for a NotFound
+        }));
+    });
 });

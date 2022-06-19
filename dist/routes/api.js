@@ -37,14 +37,11 @@ api.get("/image", validateQuery_1.default, checkImage_1.default, (req, res) => _
         const keyToCache = `${filename}${width}${height}`; // this is an id for each image with it name and format to check
         nodeCache.set(keyToCache, image);
         yield image.toFile(`images/thumbnails/${keyToCache}.jpeg`);
-        //const newpath = path.join(__dirname+"../../images");
-        //console.log(newpath);
-        res.status(200).sendFile(`images/thumbnails/${keyToCache}.jpeg`, {
+        res.status(201).sendFile(`images/thumbnails/${keyToCache}.jpeg`, {
             root: app_1.relativePath,
         });
     }
     catch (err) {
-        console.log(err);
         res.status(404).send("this image is not found"); //
     }
     //    await image.toFile("C:\\Users\\hp\\Desktop\\Mans1611\\Udacity FullStack\\projects\\Image Processing\\images\\image.jpg",(err,info)=>{

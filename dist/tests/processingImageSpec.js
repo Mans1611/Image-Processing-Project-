@@ -12,18 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.nodeCache = void 0;
-const sharp_1 = __importDefault(require("sharp"));
-const node_cache_1 = __importDefault(require("node-cache"));
-const nodeCache = new node_cache_1.default();
-exports.nodeCache = nodeCache;
-const proccessingImage = (filename, Width, Height) => __awaiter(void 0, void 0, void 0, function* () {
-    const image = yield (0, sharp_1.default)(`images/${filename}.jpg`)
-        .resize(Width, Height)
-        .jpeg();
-    const keyToCache = `${filename}-${Width}-${Height}`; // this is an id for each image with it name and format to check
-    nodeCache.set(keyToCache, image);
-    yield image.toFile(`images/thumbnails/${keyToCache}.jpeg`);
-    // return image.withMetadata();
-});
-exports.default = proccessingImage;
+const fs_1 = require("fs");
+const processingImage_1 = __importDefault(require("../utilities/processingImage"));
+describe("testing process image", () => __awaiter(void 0, void 0, void 0, function* () {
+    const filename = 'image', Width = 630, Height = 700;
+    const keyToCache = `${filename}-${Width}-${Height}`;
+    it("the image is resized", () => __awaiter(void 0, void 0, void 0, function* () {
+        const test = yield (0, processingImage_1.default)(filename, Width, Height);
+        console.log("mansout");
+        yield fs_1.promises.unlink(`images\\thumbnails\\${keyToCache}.jpeg`); //  this wi remove the image after testing 
+    }));
+}));

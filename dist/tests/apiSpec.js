@@ -16,10 +16,12 @@ const app_1 = __importDefault(require("../app"));
 const supertest_1 = __importDefault(require("supertest"));
 const request = (0, supertest_1.default)(app_1.default);
 describe("Testing api File", () => {
-    it("image proccessed", () => __awaiter(void 0, void 0, void 0, function* () {
-        const res = yield request.get("/api/image?filename=image&width=440&height=417");
-        expect(res.status).toBe(201);
-    }));
+    // it("image proccessed", async ():Promise<void> => {
+    //   const res = await request.get(
+    //     "/api/image?filename=gand&width=440&height=417"
+    //   );
+    //   expect(res.status).toBe(201);
+    // });
     describe("testing the not valid cases", () => {
         it("entering a string to the dimensions which is not valid ", () => __awaiter(void 0, void 0, void 0, function* () {
             const res = yield request.get("/api/image?filename=image&width=44l0&height=417");

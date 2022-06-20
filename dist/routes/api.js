@@ -28,7 +28,7 @@ api.get("/image", validateQuery_1.default, checkImage_1.default, (req, res) => _
     let Height = parseInt(height); // converting height to numbers
     try {
         yield (0, processingImage_1.default)(filename, Width, Height);
-        const keyToCache = `${filename}${Width}${Height}`; // this is an id for each image with it name and format to check
+        const keyToCache = `${filename}-${Width}-${Height}`; // this is an id for each image with it name and format to check
         res.status(201).sendFile(`images/thumbnails/${keyToCache}.jpeg`, {
             root: app_1.relativePath,
         });

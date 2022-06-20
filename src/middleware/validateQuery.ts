@@ -31,6 +31,7 @@ const validateQuery = (
     let checkValidateHeight: string[] | null = (
       height as unknown as string
     ).match(/[^0-9]/gi);
+    
     //console.log(checkValidateWidth);
 
     try {

@@ -19,7 +19,7 @@ api.get(
   "/image",
   validateQuery,
   checkImage,
-  async (req: express.Request, res: express.Response) => {
+  async (req: express.Request, res: express.Response):Promise<void> => {
     let { filename, width, height } = req.query;
 
     // converting the width and height to numbers
@@ -28,7 +28,7 @@ api.get(
 
     try {
       await proccessingImage((filename as string),Width,Height);
-      const keyToCache = `${filename}${Width}${Height}`; // this is an id for each image with it name and format to check
+      const keyToCache = `${filename}-${Width}-${Height}`; // this is an id for each image with it name and format to check
       res.status(201).sendFile(`images/thumbnails/${keyToCache}.jpeg`, {
         root: relativePath,
       });

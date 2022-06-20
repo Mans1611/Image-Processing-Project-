@@ -21,6 +21,11 @@ add the query parameter to the link with
     - 
     - add the width and height respectivley to the link, and both must be a numbers.
 
+# **Process Steps**
+> ### when the server recived Request it passes through two middelwares:
+> ## 1. validateQuary :  it checks if the quary is validated or not like if it empty or not. 
+> ## 2. checkImage : it checks if the image is in the cache already or not if it dose it will send the file in the cache else it will generate one through next middleware.  
+  
 # Final 
 The new processed photo will be add to the thumbnails folder  .
 

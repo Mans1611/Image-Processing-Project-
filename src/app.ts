@@ -6,7 +6,7 @@ const relativePath = path.join(__dirname, ".."); // to get out of src
 const port = 3000;
 app.use("/api", api);
 
-app.listen(port, () => {
+app.listen(port, ():void => {
   console.log("you are running on http://localhost:" + port);
 });
 export default app;

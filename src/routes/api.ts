@@ -32,6 +32,8 @@ api.get(
       res.status(201).sendFile(`images/thumbnails/${keyToCache}.jpeg`, {
         root: relativePath,
       });
+      console.log("passed");
+      
     } catch (err) {
       res.status(404).send("this image is not found"); //
     }
